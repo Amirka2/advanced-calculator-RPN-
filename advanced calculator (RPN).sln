@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "advanced calculator (RPN)", "advanced calculator (RPN).csproj", "{7CF689AA-CFCE-4258-AFB4-15291065D721}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CF689AA-CFCE-4258-AFB4-15291065D721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF689AA-CFCE-4258-AFB4-15291065D721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF689AA-CFCE-4258-AFB4-15291065D721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF689AA-CFCE-4258-AFB4-15291065D721}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A95BA4C7-FFAA-42EF-965C-ECC827775A78}
+	EndGlobalSection
+EndGlobal
