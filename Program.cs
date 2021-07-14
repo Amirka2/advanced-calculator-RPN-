@@ -17,6 +17,7 @@ namespace advanced_calculator__RPN_
                 Console.WriteLine("Некорректное выражение!");
                 return;                                             /*можно так завершать?*/
             }
+            Console.WriteLine("все ок");
             Console.ReadKey();
         }
         static string GetInput()
@@ -26,9 +27,14 @@ namespace advanced_calculator__RPN_
             using (StreamReader sr = new StreamReader(path))
             {
                 string line = sr.ReadLine();
-                while (line != null)
+                if (line != null)
                 {
                     input += line;
+                }
+                else
+                {
+                    Console.WriteLine("Пустой ввод");
+                    return "Ошибка";
                 }
             }
             return input;
