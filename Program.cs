@@ -9,14 +9,19 @@ namespace advanced_calculator__RPN_
         {
             plus = 0, minus = 1, multiply = 2, divide = 3
         }*/
+        static readonly double fStep = 1;
+        static readonly double fStart = -2;
+        static readonly double fEnd = 5;
         static void Main(string[] args)
         {
             string input = GetInput();
+
             if (!IsInputCorrect(input)) 
             {
                 Console.WriteLine("Некорректное выражение!");
                 return;                                             /*можно так завершать?*/
             }
+
             // making array with input elements 
             while (input.Contains("  ")) { input = input.Replace("  ", " "); }
             input = input.Trim();
@@ -52,8 +57,8 @@ namespace advanced_calculator__RPN_
             input = input.Trim();
             string[] array = input.Split(' ');
             if (array.Length != 3) return false;
-            else if (!IsDigit(array[0])) return false;
-            else if (!IsDigit(array[2])) return false;
+            else if ((!IsDigit(array[0])) | (!IsVariable(array[0]))) return false;
+            else if ((!IsDigit(array[2])) | (!IsVariable(array[2]))) return false;
             else if (!IsOperation(array[1])) return false;
             else return true;
         }
@@ -73,21 +78,32 @@ namespace advanced_calculator__RPN_
             if ((x == "+") || (x == "-") || (x == "*") || (x == "/")) return true;
             return false;
         }
-        static double Calculate(string x, string op, string y)
+        static bool IsVariable(string x)
         {
-            double x1 = Convert.ToDouble(x);
-            double x2 = Convert.ToDouble(y);
-            double result;
-            if (op == "+") result = x1 + x2;
-            else if (op == "-") result = x1 - x2;
-            else if (op == "*") result = x1 * x2;
-            else if (op == "/") result = x1 / x2;
-            else
+            if (x == "x") return true;
+            else return false;
+        }
+        static double Calculate(string X1, string op, string X2)  //переделать лоигку под работу с переменными
+        {
+            double x1, x2;
+            if (IsVariable(X1)) x1 = fStart;
+            else x1 = Convert.ToDouble(X1);
+            if (IsVariable(X2)) x2 = fStart;
+            else x2 = Convert.ToDouble(X2);
+            double y;
+            for (double i = fStart; i <= fEnd; i += fStep)
             {
-                Console.WriteLine("некорректная операция");
-                result = 0;
+                if (op == "+") y = x1 + x2;
+                else if (op == "-") y = x1 - x2;
+                else if (op == "*") y = x1 * x2;
+                else if (op == "/") y = x1 / x2;
+                else
+                {
+                    Console.WriteLine("некорректная операция");
+                    y = 0;
+                }
             }
-            return result;
+            return y;
         }
         static void WriteResult(double result)
         {
