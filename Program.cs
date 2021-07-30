@@ -18,7 +18,7 @@ namespace advanced_calculator__RPN_
 
             if (!IsInputCorrect(input)) 
             {
-                Console.WriteLine("Некорректное выражение!");
+                Console.WriteLine("Некорректное выражение!");        /*Удалить консоль*/
                 return;                                             /*можно так завершать?*/
             }
 
@@ -29,7 +29,7 @@ namespace advanced_calculator__RPN_
 
             var result = Calculate(inputArray[0], inputArray[1], inputArray[2]);
 
-            Console.WriteLine("result = " + result);
+            Console.WriteLine("result = " + result);                /*Удалить консоль*/
             WriteResult(result);
         }
         static string GetInput()
@@ -45,7 +45,7 @@ namespace advanced_calculator__RPN_
                 }
                 else
                 {
-                    Console.WriteLine("Пустой ввод");
+                    Console.WriteLine("Пустой ввод");                /*Удалить консоль*/
                     return "Ошибка";
                 }
             }
@@ -83,7 +83,7 @@ namespace advanced_calculator__RPN_
             if (x == "x") return true;
             else return false;
         }
-        static double Calculate(string X1, string op, string X2)  //переделать лоигку под работу с переменными
+        static double Calculate(string X1, string op, string X2)  //переделать логику под работу с переменными
         {
             double x1, x2;
             if (IsVariable(X1)) x1 = fStart;
@@ -99,7 +99,7 @@ namespace advanced_calculator__RPN_
                 else if (op == "/") y = x1 / x2;
                 else
                 {
-                    Console.WriteLine("некорректная операция");
+                    Console.WriteLine("некорректная операция");                  /*Удалить консоль*/
                     y = 0;
                 }
             }
@@ -109,7 +109,7 @@ namespace advanced_calculator__RPN_
         {
             using (StreamWriter sw = new StreamWriter("output.txt"))
             {
-                sw.WriteLine(result);
+                sw.WriteLine(result);                                            /*Удалить консоль*/
             }
         }
     }
