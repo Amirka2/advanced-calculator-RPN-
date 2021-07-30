@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace advanced_calculator__RPN_
 {
@@ -27,10 +28,10 @@ namespace advanced_calculator__RPN_
             input = input.Trim();
             string[] inputArray = input.Split(' ');
 
-            var result = Calculate(inputArray[0], inputArray[1], inputArray[2]);
+            var results = Calculate(inputArray[0], inputArray[1], inputArray[2]);
 
-            Console.WriteLine("result = " + result);                /*Удалить консоль*/
-            WriteResult(result);
+            Console.WriteLine("results = " + results);                /*Удалить консоль*/
+            WriteResult(results);
         }
         static string GetInput()
         {
@@ -57,8 +58,8 @@ namespace advanced_calculator__RPN_
             input = input.Trim();
             string[] array = input.Split(' ');
             if (array.Length != 3) return false;
-            else if ((!IsDigit(array[0])) | (!IsVariable(array[0]))) return false;
-            else if ((!IsDigit(array[2])) | (!IsVariable(array[2]))) return false;
+            else if ((IsDigit(array[0])) | (IsVariable(array[0]))) return true;
+            else if ((IsDigit(array[2])) | (IsVariable(array[2]))) return true;
             else if (!IsOperation(array[1])) return false;
             else return true;
         }
@@ -83,16 +84,18 @@ namespace advanced_calculator__RPN_
             if (x == "x") return true;
             else return false;
         }
-        static double Calculate(string X1, string op, string X2)  //переделать логику под работу с переменными
+        static List<double> Calculate(string X1, string op, string X2)  //переделать логику под работу с переменными
         {
             double x1, x2;
-            if (IsVariable(X1)) x1 = fStart;
-            else x1 = Convert.ToDouble(X1);
-            if (IsVariable(X2)) x2 = fStart;
-            else x2 = Convert.ToDouble(X2);
-            double y;
-            for (double i = fStart; i <= fEnd; i += fStep)
+
+            List<double> results = new List<double>();
+            for (double x = fStart; x <= fEnd; x += fStep)
             {
+                if (IsVariable(X1)) x1 = x;
+                else x1 = Convert.ToDouble(X1);
+                if (IsVariable(X2)) x2 = x;
+                else x2 = Convert.ToDouble(X2);
+                double y;
                 if (op == "+") y = x1 + x2;
                 else if (op == "-") y = x1 - x2;
                 else if (op == "*") y = x1 * x2;
@@ -102,14 +105,21 @@ namespace advanced_calculator__RPN_
                     Console.WriteLine("некорректная операция");                  /*Удалить консоль*/
                     y = 0;
                 }
+                results.Add(x);
+                results.Add(y);
             }
-            return y;
+            return results;
         }
-        static void WriteResult(double result)
+        static void WriteResult(List<double> result)
         {
             using (StreamWriter sw = new StreamWriter("output.txt"))
             {
-                sw.WriteLine(result);                                            /*Удалить консоль*/
+                sw.WriteLine("x | y");                                            /*Удалить консоль*/
+                for(int i = result.Count / 2 , j = 0; i > 0; i-- , j += 2)
+                {
+                    sw.Write(result[j] + " | ");
+                    sw.WriteLine(result[j + 1]);
+                }
             }
         }
     }
